@@ -6,19 +6,20 @@ from random import randint
 
 class Knapsack(object):
 
-	def __init__(self, verbose=False):
+	def __init__(self, verbose=False, n=5, weight=[10, 5, 2, 8, 15], value=[1, 2, 3, 4, 5], max_w_p=0.6):
 
 		self.verbose = verbose
-		self.item_number = np.arange(1,11)
-		self.weight = np.random.randint(1, 15, size = 10)
-		self.value = np.random.randint(10, 750, size = 10)
-		self.knapsack_threshold = 35    #Maximum weight that the bag of thief can hold
+		self.item_number = np.arange(1,n+1)
+		# self.weight = np.random.randint(1, 15, size = n)
+		# self.value = np.random.randint(10, 750, size = n)
+		self.weight = np.array(weight)
+		self.value = np.array(value)
+		# self.knapsack_threshold = int(0.15*np.sum(self.weight))
+		if max_w_p > 1.0:
+			self.knapsack_threshold = int(max_w_p)
+		else:
+			self.knapsack_threshold = int(max_w_p*np.sum(self.weight))
 
-		if verbose:
-			print('The list is as follows:')
-			print('Item No.   Weight   Value')
-			for i in range(self.item_number.shape[0]):
-			    print('{0}          {1}         {2}\n'.format(self.item_number[i], self.weight[i], self.value[i]))
 
 
 	def fitness(self, state):
@@ -35,8 +36,9 @@ class Knapsack(object):
 
 class Queens(object):
 
-	def __init__(self):
-		pass
+	def __init__(self, n_queens=8):
+
+		self.n_queens = n_queens
 
 	def fitness(self, state):
 		# Initialize counter
@@ -53,20 +55,30 @@ class Queens(object):
 		return fitness_cnt
 
 	def display_board(self, best_state):
-		flipped = [0, 0, 0, 0, 0, 0, 0, 0]
-		for i in range(8):
-			flipped[best_state[i]] = i
+		vert_init = []
+		horz = []
+		board_len = self.n_queens*4 + 1
+		for i in range(board_len):
+			if i % 4 == 0:
+				vert_init.append("|")
+				horz.append(" ")
+			else:
+				vert_init.append(" ")
+				horz.append("-")
+
+		flipped = [0]*self.n_queens
+		for i in range(len(flipped)):
+			flipped[best_state[i]] = int(i)
 
 		print(flipped)
 
-		horz = " --- --- --- --- --- --- --- ---"
+		horz = ''.join(horz)
 		idx = 0
-		for i in range(17):
+		for i in range(2*self.n_queens + 1):
 			if i % 2 == 0:
 				print(horz)
 			else:
-				vert = ["|"," "," "," ","|"," "," "," ","|"," "," "," ","|"," "," "," ","|", \
-				" "," "," ","|"," "," "," ","|"," "," "," ","|"," "," "," ","|"]
+				vert = vert_init.copy()
 				vert[4*flipped[idx]+2] = "Q"
 				idx += 1
 				print(''.join(vert))
@@ -81,4 +93,3 @@ class Queens(object):
 
 
 # 	def fitness(self, state):
-		
