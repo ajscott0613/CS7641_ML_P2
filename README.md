@@ -1,8 +1,6 @@
 # CS7641_ML_P2
 Machine Learning Project 2
 
-This Git repo contains the code necessary to generate the plots and data for the
-
 ## File Contents
 
 DiscreteAlg.py: This file contains the code necessary to generate plots and data for the Random Hill Climbing, Simualted Annealing, Genetic Algorithm, and MIMIC optimziation algorithms for three different discrete problem spaces.  This cod ewith output four png files that include plots for each problem space (12 total plots).
@@ -13,4 +11,12 @@ utils.py: contains support functions for plotting.
 
 opt_problems.py:  contains the code for different discrete problem spaces.
 
-wine
+winequality-red.csv: Wine data set used for neural network classificaiton and tuning.
+
+## Instructions
+
+
+
+The file DiscreteAlg.py can be ran by running "python DiscreteAlg.py" in the command line.
+
+The file NNTuning can be ran directly by running "python NNTuning.py" directly in the command line.
